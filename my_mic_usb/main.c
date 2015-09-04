@@ -96,9 +96,11 @@ void EVAL_AUDIO_TransferComplete_CallBack(uint32_t* pBuffer, uint32_t Size)
 #ifdef AUDIO_MAL_MODE_NORMAL
   for (i=0;i<(MIC_FILTER_RESULT_LENGTH*2);i++)
   {
-    if (buffer_ready == 1) {audiodata[i] = 65535; //RecBuf1[i>>1];
-	} else {audiodata[i] = 65535; // RecBuf0[i>>1];
-	}//make pseudo-stereo
+    if (buffer_ready == 1) {
+       audiodata[i] = RecBuf1[i>>1];
+    } else { 
+	RecBuf0[i>>1];
+    }//make pseudo-stereo
   }
   
   EVAL_AUDIO_Play((uint16_t*)(&audiodata[0]),MIC_FILTER_RESULT_LENGTH*2*2);
