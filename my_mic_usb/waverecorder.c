@@ -59,7 +59,7 @@ void DMA1_Stream3_IRQHandler(void)
     
     PDM_Filter_64_LSB((uint8_t *)Mic_PDM_Buffer, decode_buf, MicGain , (PDMFilter_InitStruct *)&Filter);//filter RAW data
 
-    for(i=0;i<MIC_FILTER_RESULT_LENGTH;i++)decode_buf[i]=255;
+    //for(i=0;i<MIC_FILTER_RESULT_LENGTH;i++)decode_buf[i]=255;
     
     buffer_ready = tmp_buf_number;
   }
