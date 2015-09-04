@@ -9,7 +9,7 @@
 #include "usbd_desc.h"
 #include "usbd_audio_core.h"
 #include "waverecorder.h"
-
+#include "stm32f4xx_spi.h"
 
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
 
@@ -96,7 +96,9 @@ void EVAL_AUDIO_TransferComplete_CallBack(uint32_t* pBuffer, uint32_t Size)
 #ifdef AUDIO_MAL_MODE_NORMAL
   for (i=0;i<(MIC_FILTER_RESULT_LENGTH*2);i++)
   {
-    if (buffer_ready == 1) {audiodata[i] = RecBuf1[i>>1];} else {audiodata[i] = RecBuf0[i>>1];}//make pseudo-stereo
+    if (buffer_ready == 1) {audiodata[i] = 65535; //RecBuf1[i>>1];
+	} else {audiodata[i] = 65535; // RecBuf0[i>>1];
+	}//make pseudo-stereo
   }
   
   EVAL_AUDIO_Play((uint16_t*)(&audiodata[0]),MIC_FILTER_RESULT_LENGTH*2*2);

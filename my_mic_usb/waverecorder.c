@@ -2,8 +2,8 @@
 #include "main.h"
 #include "pdm_filter.h"
 #include "waverecorder.h" 
-
-
+#include "stm32f4xx_dma.h"
+#include "stm32f4xx_spi.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -58,6 +58,9 @@ void DMA1_Stream3_IRQHandler(void)
     for (i=0;i<INTERNAL_BUFF_SIZE;i++){Mic_PDM_Buffer[i] = HTONS(write_buf[i]);}//swap bytes for filter
     
     PDM_Filter_64_LSB((uint8_t *)Mic_PDM_Buffer, decode_buf, MicGain , (PDMFilter_InitStruct *)&Filter);//filter RAW data
+
+    for(i=0;i<MIC_FILTER_RESULT_LENGTH;i++)decode_buf[i]=255;
+    
     buffer_ready = tmp_buf_number;
   }
   STM_EVAL_LEDOff(LED3);

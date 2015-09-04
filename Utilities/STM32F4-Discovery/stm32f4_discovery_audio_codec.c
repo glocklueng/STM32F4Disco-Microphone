@@ -145,7 +145,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4_discovery_audio_codec.h"
 #include "stm32f4_discovery.h"
-
+#include <stm32f4xx_dac.h>
+#include <stm32f4xx_spi.h>
+#include <stm32f4xx_i2c.h>
+#include <stm32f4xx_dma.h>
 /** @addtogroup Utilities
   * @{
   */

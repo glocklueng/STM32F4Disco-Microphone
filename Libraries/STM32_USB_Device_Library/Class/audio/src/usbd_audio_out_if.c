@@ -22,7 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_audio_core.h"
 #include "usbd_audio_out_if.h"
-
+#include <stm32f4_discovery_audio_codec.h>
 
 
 
@@ -183,7 +183,7 @@ static uint8_t  AudioCmd(uint8_t* pbuf,
     /* If current state is Paused */
     else if (AudioState == AUDIO_STATE_PAUSED)
     {
-      if (EVAL_AUDIO_PauseResume(AUDIO_RESUME, (uint32_t)pbuf, (size/2)) != 0)
+      if (EVAL_AUDIO_PauseResume(AUDIO_RESUME /*, (uint32_t)pbuf, (size/2)*/) != 0)
       {
         AudioState = AUDIO_STATE_ERROR;
         return AUDIO_FAIL;
@@ -224,7 +224,7 @@ static uint8_t  AudioCmd(uint8_t* pbuf,
       /* Unsupported command */
       return AUDIO_FAIL;
     }
-    else if (EVAL_AUDIO_PauseResume(AUDIO_PAUSE, (uint32_t)pbuf, (size/2)) != 0)
+    else if (EVAL_AUDIO_PauseResume(AUDIO_PAUSE /*, (uint32_t)pbuf, (size/2)*/) != 0)
     {
       AudioState = AUDIO_STATE_ERROR;
       return AUDIO_FAIL;
